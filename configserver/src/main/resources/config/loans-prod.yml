@@ -1,0 +1,11 @@
+build:
+  version: "1.0"
+
+accounts:
+  message: "Welcome to AWF loans related Prod APIs "
+  contactDetails:
+    name: "Mohammad Ali - Developer"
+    email: "mohammad@awf.com"
+  onCallSupport:
+    - (999) 555-1234
+    - (999) 523-1345

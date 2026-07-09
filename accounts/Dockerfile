@@ -1,0 +1,8 @@
+FROM eclipse-temurin:25
+
+LABEL awf.com Team
+
+COPY target/accounts-0.0.1-SNAPSHOT.jar accounts-0.0.1-SNAPSHOT.jar
+
+
+ENTRYPOINT ["java", "-jar" , "accounts-0.0.1-SNAPSHOT.jar"]

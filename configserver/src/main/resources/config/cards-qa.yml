@@ -1,0 +1,11 @@
+build:
+  version: "2.0"
+
+accounts:
+  message: "Welcome to AWF cards related QA APIs "
+  contactDetails:
+    name: "Mohammad Ali - Developer"
+    email: "mohammad@awf.com"
+  onCallSupport:
+    - (999) 555-1234
+    - (999) 523-1345
