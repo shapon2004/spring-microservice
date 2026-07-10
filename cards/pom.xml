@@ -178,7 +178,7 @@
 				<version>3.5.1</version>
 				<configuration>
 					<to>
-						<image>awf/${project.artifactId}:s6</image>
+						<image>awf/${project.artifactId}:s8</image>
 					</to>
 				</configuration>
 			</plugin>

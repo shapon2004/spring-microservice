@@ -46,7 +46,7 @@ services:
       service: network-deploy-service
 
   configserver:
-    image: "awf/configserver:s6"
+    image: "awf/configserver:s8"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -63,9 +63,28 @@ services:
       file: common-config.yml
       service: microservice-base-config
 
+  eurekaserver:
+    image: "awf/eurekaserver:s8"
+    container_name: eurekaserver-ms
+    ports:
+      - "8070:8070"
+    depends_on:
+      configserver:
+        condition: service_healthy
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: microservice-eureka-config
+    environment:
+      SPRING_APPLICATION_NAME: "eurekaserver"
 
   accounts:
-    image: "awf/accounts:s6"
+    image: "awf/accounts:s8"
     container_name: accounts-ms
     ports:
       - "8080:8080"
@@ -74,13 +93,13 @@ services:
         condition: service_healthy
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
     environment:
       SPRING_APPLICATION_NAME: "accounts"
       SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3306/accountsdb"
 
   loans:
-    image: "awf/loans:s6"
+    image: "awf/loans:s8"
     container_name: loans-ms
     ports:
       - "8090:8090"
@@ -89,13 +108,13 @@ services:
         condition: service_healthy
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
     environment:
       SPRING_APPLICATION_NAME: "loans"
       SPRING_DATASOURCE_URL: "jdbc:mysql://loansdb:3306/loansdb"
 
   cards:
-    image: "awf/cards:s6"
+    image: "awf/cards:s8"
     container_name: cards-ms
     ports:
       - "9000:9000"
@@ -104,7 +123,7 @@ services:
         condition: service_healthy
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
 
     environment:
       SPRING_APPLICATION_NAME: "cards"
