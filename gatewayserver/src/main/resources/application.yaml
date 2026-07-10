@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: gatewayserver
+  config:
+    import: "configserver:http://localhost:8071/"
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: false
+              lower-case-service-id: true
+
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      access: unrestricted
+  info:
+    env:
+      enabled: true
+
+
+info:
+  app:
+    name: "gatewayserver"
+    description: "AWF Bank gateway server application"
+    version: "1.0"
+
+logging:
+  level:
+    com:
+      awf:
+        gatewayserver: DEBUG
+
+
+
+
+
